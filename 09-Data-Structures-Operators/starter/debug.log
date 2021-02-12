@@ -1,0 +1,3 @@
+[0106/000859.027:ERROR:exception_handler_server.cc(470)] failed to open 20080
+[0106/001105.478:ERROR:exception_handler_server.cc(470)] failed to open 11992
+[0106/001534.560:ERROR:directory_reader_win.cc(43)] FindFirstFile: 지정된 경로를 찾을 수 없습니다. (0x3)
