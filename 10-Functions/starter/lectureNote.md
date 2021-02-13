@@ -9,3 +9,7 @@
 callback function
 
 ## 131. Functions Returning Functions
+
+## 132. The call and apply Methods
+
+## 133. The bind Method
