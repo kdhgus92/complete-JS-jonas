@@ -310,6 +310,7 @@ runOnce();
 console.log(notPrivate);
 */
 
+/*
 const secureBooking = function () {
   let passengerCount = 0;
 
@@ -326,3 +327,51 @@ booker();
 booker();
 
 console.dir(booker);
+*/
+
+// Example 1
+let f;
+
+const g = function () {
+  const a = 23;
+
+  f = function () {
+    console.log(a * 2);
+  };
+};
+
+const h = function () {
+  const b = 777;
+  f = function () {
+    console.log(b * 2);
+  };
+};
+
+g();
+f(); // 46
+console.dir(f);
+
+// Re-assigning f function
+h();
+f(); // 1554
+console.dir(f);
+
+// Example 2
+const boardPassengers = function (n, wait) {
+  const perGroup = n / 3;
+
+  setTimeout(function () {
+    console.log(`We are now boarding all ${n} passengers`);
+    console.log(`There are 3 groups , each with ${perGroup} passengers`);
+  }, wait * 1000);
+  // Callback function work independantly
+
+  console.log(`Will start boarding in ${wait} seconds`);
+};
+
+// setTimeout(function () {
+//   console.log('TIMER');
+// }, 1000);
+
+const perGroup = 1000;
+boardPassengers(180, 3);
