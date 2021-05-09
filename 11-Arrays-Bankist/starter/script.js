@@ -774,3 +774,75 @@ const dogs = [
 GOOD LUCK 😀
 
 */
+
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+// 1.
+dogs.forEach((dog, i) => {
+  dog.recommandedFood = Math.trunc(dog.weight ** 0.75 * 28);
+});
+console.log(dogs);
+
+// 2.
+// const sarahDogs = dogs.filter(dog => dog.owners.includes('Sarah'));
+// sarahDogs.forEach(sarahDog => {
+//   if (sarahDog.curFood > sarahDog.recommandedFood * 1.1) {
+//     console.log(`Sarah's Dog eat too much`);
+//   } else if (sarahDog.curFood < sarahDog.recommandedFood * 0.9) {
+//     console.log(`Sarah's Dog eat too little`);
+//   } else {
+//     console.log(`Sarah's Dog eat Okay`);
+//   }
+// });
+const sarahDog = dogs.find(dog => dog.owners.includes('Sarah'));
+console.log(sarahDog);
+console.log(
+  `Sarah's dog is eating too ${
+    sarahDog.curFood > sarahDog.recommandedFood ? 'much' : 'little'
+  }`
+);
+
+// 3.
+const ownersEatTooMuch = dogs
+  .filter(dog => dog.curFood > dog.recommandedFood * 1.1)
+  .flatMap(dog => dog.owners);
+console.log(ownersEatTooMuch);
+
+const ownersEatTooLittle = dogs
+  .filter(dog => dog.curFood < dog.recommandedFood * 0.9)
+  .flatMap(dog => dog.owners);
+console.log(ownersEatTooLittle);
+
+// 4. flatMap
+console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much!`);
+console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too little!`);
+
+// 5. some
+console.log(dogs.some(dog => dog.curFood === dog.recommandedFood));
+
+// 6. some
+const checkEatingOkay = dog =>
+  dog.curFood > dog.recommandedFood * 0.9 &&
+  dog.curFood < dog.recommandedFood * 1.1;
+console.log(dogs.some(checkEatingOkay));
+
+// 7.
+const eatOkayAmount = dogs.filter(checkEatingOkay);
+console.log(eatOkayAmount);
+
+// 8.
+const dogsCopy = dogs.slice();
+dogsCopy.forEach(dog => {
+  dog.portion = (dog.curFood / dog.recommandedFood) * 100;
+});
+dogsCopy.sort((a, b) => a.portion - b.portion);
+console.log(dogsCopy);
+const dogsSorted = dogs
+  .slice()
+  .sort((a, b) => a.recommandedFood - b.recommandedFood);
+console.log(dogsSorted);
