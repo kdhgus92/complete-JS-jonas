@@ -371,7 +371,7 @@ btnSort.addEventListener('click', function (e) {
 /*
 // 168.
 // 내부적으로 실수로 변환한다.
-console.log(23 === 23.0);
+console.log(23 === 23.0); // true
 
 // Base 10 - 0 to 9. 1/10 = 0.1. 1/3 = 3.33333
 // Binary base 2 - 0 1
