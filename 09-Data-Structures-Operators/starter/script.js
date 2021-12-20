@@ -637,6 +637,22 @@ team1 > team2 && console.log(`Team2 is more likely to win`);
 
 */
 
+const rest1 = {
+  name: 'Capri',
+  numGuests: 20,
+};
+
+const rest2 = {
+  name: 'La Pizza',
+  owner: 'Giovanni Rossi',
+};
+
+rest1.numGuests = rest1.numGuests || 10;
+rest2.numGuests = rest2.numGuests || 10;
+
+console.log(rest1);
+console.log(rest2);
+
 /*==========================================
 // 108. Nullish Coalescing Operator
 
