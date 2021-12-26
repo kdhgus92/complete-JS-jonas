@@ -29,6 +29,18 @@ const jay = 'Jay';
 console.log(jonas instanceof Person);
 console.log(jay instanceof Person);
 
+// Static Method
+Person.hey = function () {
+  console.log('Hey there :)');
+  console.log(this);
+};
+
+Person.hey();
+// jonas.hey();
+*/
+
+/*
+/////////////////////////////////////////////////////////////
 // Prototypes
 console.log(Person.prototype);
 
@@ -53,6 +65,11 @@ console.log(jonas.species, matilda.species);
 
 console.log(jonas.hasOwnProperty('birthYear')); // true
 console.log(jonas.hasOwnProperty('species')); // false
+*/
+
+/*
+//////////////////////////////////////////////////////////////
+// Prototypal Inheritance on Built in Object
 
 console.log(jonas.__proto__);
 // Object.prototype (top of prototype chain)
@@ -61,8 +78,6 @@ console.log(jonas.__proto__.__proto__.__proto__); // null
 
 // console.log(Person.prototype.constructor);
 console.dir(Person.prototype.constructor);
-
-*/
 
 ///////////////////////////////////////////////////////
 /*
@@ -108,6 +123,7 @@ car2.accelerate();
 car1.brake();
 */
 
+///////////////////////////////////////////////////////////////
 // class expression
 // const PersonCl = class {};
 
@@ -118,6 +134,7 @@ class PersonCl {
     this.birthYear = birthYear;
   }
 
+  // Instance Method
   // Methods will be added to .prototype property
   calcAge() {
     console.log(2037 - this.birthYear);
@@ -140,7 +157,16 @@ class PersonCl {
   get fullName() {
     return this._fullName;
   }
+
+  // Static Method
+  static hey() {
+    console.log('Hey there :) - PersonCl');
+    console.log(this);
+  }
 }
+
+/*
+PersonCl.hey();
 
 const jessica = new PersonCl('Jessica Davis', 1996);
 console.log(jessica);
@@ -174,3 +200,80 @@ console.log(account.latest);
 
 account.latest = 50;
 console.log(account.movements);
+*/
+
+/*
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const steven = Object.create(PersonProto);
+console.log(steven);
+steven.name = 'Steven';
+steven.birthYear = 2002;
+steven.calcAge();
+
+console.log(steven.__proto__ === PersonProto);
+
+const sarah = Object.create(PersonProto);
+sarah.init('Sarah', 1979);
+sarah.calcAge();
+*/
+
+/*
+////////////////////////////////////////////////////
+// Code Challenge #2
+
+Your tasks:
+1. Re-create Challenge #1, but this time using an ES6 class (call it 'CarCl')
+2. Add a getter called 'speedUS' which returns the current speed in mi/h (divide
+by 1.6)
+3. Add a setter called 'speedUS' which sets the current speed in mi/h (but
+converts it to km/h before storing the value, by multiplying the input by 1.6)
+4. Create a new car and experiment with the 'accelerate' and 'brake'
+methods, and with the getter and setter.
+Test data:
+§ Data car 1: 'Ford' going at 120 km/h
+GOOD LUCK 😀
+
+*/
+
+class CarCl {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  accelerate() {
+    this.speed += 10;
+    console.log(`${this.make} going at ${this.speed} km/h`);
+  }
+
+  brake() {
+    this.speed -= 5;
+    console.log(`${this.make} going at ${this.speed} km/h`);
+  }
+
+  get speedUS() {
+    return this.speed / 1.6;
+  }
+
+  set speedUS(speed) {
+    this.speed = 1.6 * speed;
+  }
+}
+
+const car1 = new CarCl('Ford', 120);
+console.log(car1.speedUS);
+car1.accelerate();
+car1.brake();
+console.log(car1.speedUS);
+car1.speedUS = 75;
+console.log(car1.speed);
