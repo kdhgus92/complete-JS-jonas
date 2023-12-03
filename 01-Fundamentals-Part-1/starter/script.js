@@ -395,8 +395,10 @@ console.log(`I like to drink ${age >= 18? 'wine' : 'water'}`);
 */
 
 const bill = 430;
-const tip = 50<=bill && bill<=300 ? bill*0.15 : bill*0.2;
-console.log(`The bill was ${bill}, the tip was ${tip} and the total value ${bill+tip}`);
+const tip = 50 <= bill && bill <= 300 ? bill * 0.15 : bill * 0.2;
+console.log(
+  `The bill was ${bill}, the tip was ${tip} and the total value ${bill + tip}`
+);
 
 // let tip;
 // if(50 <= bill && bill <= 300) {
@@ -406,3 +408,13 @@ console.log(`The bill was ${bill}, the tip was ${tip} and the total value ${bill
 // }
 // console.log(`The bill was ${bill}, the tip was ${tip} and the total value ${bill+tip}`);
 
+const massMark = 78;
+const heightMark = 1.69;
+const massJohn = 92;
+const heightJohn = 1.95;
+
+const BMIMark = massMark / (heightMark * heightMark);
+const BMIJohn = massJohn / (heightJohn * heightJohn);
+
+console.log(BMIMark);
+console.log(BMIJohn);
