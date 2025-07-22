@@ -234,6 +234,12 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 // LECTURES
 
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /*
@@ -300,11 +306,6 @@ movements.forEach(function (mov, i, arr) {
 
 /*
 // Map
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
 
 currencies.forEach(function (value, key, map) {
   console.log(`${key}: ${value}`);
@@ -775,6 +776,7 @@ GOOD LUCK 😀
 
 */
 
+/*
 const dogs = [
   { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
   { weight: 8, curFood: 200, owners: ['Matilda'] },
@@ -787,6 +789,7 @@ dogs.forEach((dog, i) => {
   dog.recommandedFood = Math.trunc(dog.weight ** 0.75 * 28);
 });
 console.log(dogs);
+*/
 
 // 2.
 // const sarahDogs = dogs.filter(dog => dog.owners.includes('Sarah'));
@@ -799,6 +802,8 @@ console.log(dogs);
 //     console.log(`Sarah's Dog eat Okay`);
 //   }
 // });
+
+/*
 const sarahDog = dogs.find(dog => dog.owners.includes('Sarah'));
 console.log(sarahDog);
 console.log(
@@ -846,3 +851,21 @@ const dogsSorted = dogs
   .slice()
   .sort((a, b) => a.recommandedFood - b.recommandedFood);
 console.log(dogsSorted);
+
+*/
+
+console.log(movements);
+const lastWithdrawal = movements.findLast(mov => mov < 0);
+console.log(lastWithdrawal);
+
+// 'Your latest large movement was X movements ago'
+
+const lastestLargeMovementIndex = movements.findLastIndex(
+  mov => Math.abs(mov) > 1000
+);
+console.log(lastestLargeMovementIndex);
+console.log(
+  `Your latest large movement was ${
+    movements.length - lastestLargeMovementIndex
+  } movements ago`
+);
