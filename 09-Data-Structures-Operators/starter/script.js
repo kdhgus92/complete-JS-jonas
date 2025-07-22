@@ -48,8 +48,47 @@ const restaurant = {
   },
 };
 
+const italianFoods = new Set([
+  'pasta',
+  'gnocchi',
+  'tomatoes',
+  'olive oil',
+  'garlic',
+  'basil',
+]);
+
+const mexicanFoods = new Set([
+  'tortillas',
+  'beans',
+  'rice',
+  'tomatoes',
+  'avocado',
+  'garlic',
+]);
+
+const commonFoods = italianFoods.intersection(mexicanFoods);
+console.log('Intersection:', commonFoods);
+console.log([...commonFoods]);
+
+const italianMexicanFusion = italianFoods.union(mexicanFoods);
+console.log('Union:', italianMexicanFusion);
+console.log([...new Set([...italianFoods, ...mexicanFoods])]);
+
+const uniqueItalianFoods = italianFoods.difference(mexicanFoods);
+console.log('Difference italian', uniqueItalianFoods);
+
+const uniqueMexicanFoods = mexicanFoods.difference(italianFoods);
+console.log('Difference mexican', uniqueMexicanFoods);
+
+const uniqueItalianAndMexicanFoods =
+  italianFoods.symmetricDifference(mexicanFoods);
+console.log(uniqueItalianAndMexicanFoods);
+
+console.log(italianFoods.isDisjointFrom(mexicanFoods));
+
 // 124. String Method Practice
 
+/*
 // Data needed for a later exercise
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
@@ -67,6 +106,7 @@ for (const flight of flights.split('+')) {
   )})`.padStart(50, '-');
   console.log(output);
 }
+*/
 
 /*
 // 123. Coding Chanllenge #4
@@ -637,6 +677,7 @@ team1 > team2 && console.log(`Team2 is more likely to win`);
 
 */
 
+/*
 const rest1 = {
   name: 'Capri',
   numGuests: 20,
@@ -652,6 +693,7 @@ rest2.numGuests = rest2.numGuests || 10;
 
 console.log(rest1);
 console.log(rest2);
+*/
 
 /*==========================================
 // 108. Nullish Coalescing Operator
