@@ -10,6 +10,7 @@ const account1 = {
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
+  type: 'premium',
 };
 
 const account2 = {
@@ -17,6 +18,7 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
+  type: 'standard',
 };
 
 const account3 = {
@@ -24,6 +26,7 @@ const account3 = {
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
+  type: 'premium',
 };
 
 const account4 = {
@@ -31,6 +34,7 @@ const account4 = {
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
+  type: 'basic',
 };
 
 const accounts = [account1, account2, account3, account4];
@@ -854,6 +858,7 @@ console.log(dogsSorted);
 
 */
 
+/*
 console.log(movements);
 const lastWithdrawal = movements.findLast(mov => mov < 0);
 console.log(lastWithdrawal);
@@ -869,3 +874,148 @@ console.log(
     movements.length - lastestLargeMovementIndex
   } movements ago`
 );
+*/
+
+///////////////////////////////////////
+// Coding Challenge #4
+
+/*
+This time, Julia and Kate are studying the activity levels of different dog breeds.
+
+YOUR TASKS:
+1. Store the the average weight of a "Husky" in a variable "huskyWeight"
+2. Find the name of the only breed that likes both "running" and "fetch" ("dogBothActivities" variable)
+3. Create an array "allActivities" of all the activities of all the dog breeds
+4. Create an array "uniqueActivities" that contains only the unique activities (no activity repetitions). HINT: Use a technique with a special data structure that we studied a few sections ago.
+5. Many dog breeds like to swim. What other activities do these dogs like? Store all the OTHER activities these breeds like to do, in a unique array called "swimmingAdjacent".
+6. Do all the breeds have an average weight of 10kg or more? Log to the console whether "true" or "false".
+7. Are there any breeds that are "active"? "Active" means that the dog has 3 or more activities. Log to the console whether "true" or "false".
+
+BONUS: What's the average weight of the heaviest breed that likes to fetch? HINT: Use the "Math.max" method along with the ... operator.
+
+TEST DATA:
+*/
+
+/*
+const breeds = [
+  {
+    breed: 'German Shepherd',
+    averageWeight: 32,
+    activities: ['fetch', 'swimming'],
+  },
+  {
+    breed: 'Dalmatian',
+    averageWeight: 24,
+    activities: ['running', 'fetch', 'agility'],
+  },
+  {
+    breed: 'Labrador',
+    averageWeight: 28,
+    activities: ['swimming', 'fetch'],
+  },
+  {
+    breed: 'Beagle',
+    averageWeight: 12,
+    activities: ['digging', 'fetch'],
+  },
+  {
+    breed: 'Husky',
+    averageWeight: 26,
+    activities: ['running', 'agility', 'swimming'],
+  },
+  {
+    breed: 'Bulldog',
+    averageWeight: 36,
+    activities: ['sleeping'],
+  },
+  {
+    breed: 'Poodle',
+    averageWeight: 18,
+    activities: ['agility', 'fetch'],
+  },
+];
+
+// 1.
+const huskyWeight = breeds.find(breed => breed.breed === 'Husky').averageWeight;
+console.log(huskyWeight);
+
+// 2.
+const dogBothActivities = breeds.find(
+  breed =>
+    breed.activities.includes('fetch') && breed.activities.includes('running')
+).breed;
+console.log(dogBothActivities);
+
+// 3.
+// const allActivities = breeds.map(breed => breed.activities).flat();
+const allActivities = breeds.flatMap(breed => breed.activities);
+console.log(allActivities);
+
+// 4.
+const uniqueActivities = [...new Set(allActivities)];
+console.log(uniqueActivities);
+
+// 5.
+const swimmingAdjacent = [
+  ...new Set(
+    breeds
+      .filter(breed => breed.activities.includes('swimming'))
+      .flatMap(breed => breed.activities)
+      .filter(activity => activity !== 'swimming')
+  ),
+];
+console.log(swimmingAdjacent);
+
+// 6.
+console.log(breeds.every(breed => breed.averageWeight > 10));
+
+// 7.
+console.log(breeds.some(breed => breed.activities.length >= 3));
+
+// BONUS
+const fetchWeight = breeds
+  .filter(breed => breed.activities.includes('fetch'))
+  .map(breed => breed.averageWeight);
+const heaviestFetchBreed = Math.max(...fetchWeight);
+
+console.log(fetchWeight);
+console.log(heaviestFetchBreed);
+*/
+
+// array grouping
+
+console.log(movements);
+
+const groupedMovements = Object.groupBy(movements, movement =>
+  movement > 0 ? 'deposits' : 'withdrawals'
+);
+console.log(groupedMovements);
+
+const groupedByActivity = Object.groupBy(accounts, account => {
+  const movementCount = account.movements.length;
+  if (movementCount >= 8) return 'very active';
+  if (movementCount >= 4) return 'active';
+  if (movementCount >= 1) return 'moderate';
+  return 'inactive';
+});
+console.log(groupedByActivity);
+
+// const groupedAccounts = Object.groupBy(accounts, account => account.type);
+const groupedAccounts = Object.groupBy(accounts, ({ type }) => type);
+console.log(groupedAccounts);
+
+//////////////////////////////////////////////////////////////////////
+// Non-Destructive Alternatives: toReversed, toSorted, toSpliced, with
+
+console.log(movements);
+// const reversedMov = movements.slice().reverse();
+const reversedMov = movements.toReversed();
+console.log(reversedMov);
+
+// toSorted (sort), toSpliced (splice)
+
+// movements[1] = 2000;
+const newMovements = movements.with(1, 2000);
+console.log(newMovements);
+
+console.log(movements);
