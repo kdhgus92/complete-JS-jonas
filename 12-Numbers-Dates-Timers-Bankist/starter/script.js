@@ -109,17 +109,21 @@ const formatCur = function (value, locale, currency) {
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
-  const movs = sort
-    ? acc.movements.slice().sort((a, b) => a - b)
-    : acc.movements;
+  const combinedMovsDates = acc.movements.map((mov, i) => ({
+    movement: mov,
+    movementDate: acc.movementsDates.at(i),
+  }));
 
-  movs.forEach(function (mov, i) {
-    const type = mov > 0 ? 'deposit' : 'withdrawal';
+  if (sort) combinedMovsDates.sort((a, b) => a.movement - b.movement);
 
-    const date = new Date(acc.movementsDates[i]);
+  combinedMovsDates.forEach(function (obj, i) {
+    const { movement, movementDate } = obj;
+    const type = movement > 0 ? 'deposit' : 'withdrawal';
+
+    const date = new Date(movementDate);
     const displayDate = formatMovementDate(date, acc.locale);
 
-    const formattedMov = formatCur(mov, acc.locale, acc.currency);
+    const formattedMov = formatCur(movement, acc.locale, acc.currency);
 
     const html = `
       <div class="movements__row">
@@ -219,9 +223,9 @@ const startLogOutTimer = function () {
 let currentAccount, timer;
 
 // FAKE ALWAYS LOGGED IN
-// currentAccount = account1;
-// updateUI(currentAccount);
-// containerApp.style.opacity = 100;
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
 
 // Experimenting API
 
