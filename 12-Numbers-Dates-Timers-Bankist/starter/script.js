@@ -116,6 +116,10 @@ const displayMovements = function (acc, sort = false) {
 
   if (sort) combinedMovsDates.sort((a, b) => a.movement - b.movement);
 
+  // const movs = sort
+  //   ? acc.movements.slice().sort((a, b) => a - b)
+  //   : acc.movements;
+
   combinedMovsDates.forEach(function (obj, i) {
     const { movement, movementDate } = obj;
     const type = movement > 0 ? 'deposit' : 'withdrawal';

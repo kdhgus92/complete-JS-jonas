@@ -42,17 +42,17 @@ document.addEventListener('keydown', function (e) {
 // Button scrolling
 btnScrollTo.addEventListener('click', function (e) {
   const s1coords = section1.getBoundingClientRect();
-  console.log(s1coords);
+  // console.log(s1coords);
 
-  console.log(e.target.getBoundingClientRect());
+  // console.log(e.target.getBoundingClientRect());
 
-  console.log('Current scroll (X/Y)', window.pageXOffset, pageYOffset);
+  // console.log('Current scroll (X/Y)', window.pageXOffset, pageYOffset);
 
-  console.log(
-    'height/width viewport',
-    document.documentElement.clientHeight,
-    document.documentElement.clientWidth
-  );
+  // console.log(
+  //   'height/width viewport',
+  //   document.documentElement.clientHeight,
+  //   document.documentElement.clientWidth
+  // );
 
   // Scrolling
   // window.scrollTo(
@@ -60,11 +60,11 @@ btnScrollTo.addEventListener('click', function (e) {
   //   s1coords.top + window.pageYOffset
   // );
 
-  // window.scrollTo({
-  //   left: s1coords.left + window.pageXOffset,
-  //   top: s1coords.top + window.pageYOffset,
-  //   behavior: 'smooth',
-  // });
+  window.scrollTo({
+    left: s1coords.left + window.pageXOffset,
+    top: s1coords.top + window.pageYOffset,
+    behavior: 'smooth',
+  });
 
   section1.scrollIntoView({ behavior: 'smooth' });
 });
@@ -74,39 +74,41 @@ btnScrollTo.addEventListener('click', function (e) {
 
 // 189. Event delegation: Implementing page navigation
 
-// document.querySelectorAll('.nav__link').forEach(function (el) {
-//   el.addEventListener('click', function (e) {
-//     e.preventDefault();
-//     const id = this.getAttribute('href'); // this.href: 절대경로
-//     console.log(id);
-//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-//   });
-// });
+document.querySelectorAll('.nav__link').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    e.preventDefault();
+    const id = this.getAttribute('href'); // this.href: 절대경로
+    // console.log(id);
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  });
+});
 
 // 1. Add event listener to common parent element
 // 2. Determine what element originated the event
 
 document.querySelector('.nav__links').addEventListener('click', function (e) {
-  console.log(e.target);
+  // console.log(e.target);
   e.preventDefault();
 
   // Matching strategy
   if (e.target.classList.contains('nav__link')) {
     const id = e.target.getAttribute('href'); // this.href: 절대경로
-    console.log(id);
+    // console.log(id);
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
 
 // Tabbed component
 
-// tabs.forEach(t=>t.addEventListener('click',()=>{
-//   console.log('TAB');
-// }));
+tabs.forEach(t =>
+  t.addEventListener('click', () => {
+    // console.log('TAB');
+  })
+);
 
 tabsContainer.addEventListener('click', function (e) {
   const clicked = e.target.closest('.operations__tab');
-  console.log(clicked);
+  // console.log(clicked);
 
   // Guard clause
   if (!clicked) return;
@@ -119,7 +121,7 @@ tabsContainer.addEventListener('click', function (e) {
   clicked.classList.add('operations__tab--active');
 
   // Activate content area
-  console.log(clicked.dataset.tab);
+  // console.log(clicked.dataset.tab);
   document
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
@@ -145,9 +147,9 @@ const handleHover = function (e) {
 // nav.addEventListener('mouseover', function (e) {
 //   handleHover(e, 0.5);
 // });
-// nav.addEventListener('mouseout', function (e) {
-//   handleHover(e, 1);
-// });
+nav.addEventListener('mouseout', function (e) {
+  handleHover(e, 1);
+});
 
 // Passing "argument" into handler
 nav.addEventListener('mouseover', handleHover.bind(0.5));
@@ -155,31 +157,31 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 
 /////////////////////////////////////////////////////////////
 // Sticky navigation
-// const initialCoords = section1.getBoundingClientRect();
+const initialCoords = section1.getBoundingClientRect();
 // console.log(initialCoords);
 
-// window.addEventListener('scroll', function () {
-//   console.log(window.scrollY);
+window.addEventListener('scroll', function () {
+  // console.log(window.scrollY);
 
-//   if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
-//   else nav.classList.remove('sticky');
-// });
+  if (window.scrollY > initialCoords.top) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+});
 
 // Sticky navigation: Intersection Observer API
 
-// const obsCallback = function (entries, observer) {
-//   entries.forEach(entry => {
-//     console.log(entry);
-//   });
-// };
+const obsCallback = function (entries, observer) {
+  entries.forEach(entry => {
+    // console.log(entry);
+  });
+};
 
-// const obsOptions = {
-//   root: null,
-//   threshold: [0, 0.2],
-// };
+const obsOptions = {
+  root: null,
+  threshold: [0, 0.2],
+};
 
-// const observer = new IntersectionObserver(obsCallback, obsOptions);
-// observer.observe(section1);
+const observer = new IntersectionObserver(obsCallback, obsOptions);
+observer.observe(section1);
 
 const header = document.querySelector('.header');
 const navHeight = nav.getBoundingClientRect().height;
@@ -201,17 +203,26 @@ const headerObserver = new IntersectionObserver(stickyNav, {
 
 headerObserver.observe(header);
 
+/////////////////////////////////////////////////////////////////////
 // Reveal sections
 const allSections = document.querySelectorAll('.section');
 
 const revealSection = function (entries, observer) {
-  const [entry] = entries;
-  // console.log(entry);
+  console.log('entries', entries);
+  // const [entry] = entries;
 
-  if (!entry.isIntersecting) return;
+  // if (!entry.isIntersecting) return;
 
-  entry.target.classList.remove('section--hidden');
-  observer.unobserve(entry.target);
+  // entry.target.classList.remove('section--hidden');
+  // observer.unobserve(entry.target);
+
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+
+    console.log('isIntersecting');
+    entry.target.classList.remove('section--hidden');
+    observer.unobserve(entry.target);
+  });
 };
 
 const sectionObserver = new IntersectionObserver(revealSection, {
@@ -221,7 +232,7 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 
 allSections.forEach(function (section) {
   sectionObserver.observe(section);
-  // section.classList.add('section--hidden');
+  section.classList.add('section--hidden');
 });
 
 // lazy loading Images
@@ -230,7 +241,7 @@ const imgTargets = document.querySelectorAll('img[data-src]');
 
 const loadImg = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
+  // console.log(entry);
 
   if (!entry.isIntersecting) return;
 
@@ -280,7 +291,7 @@ const slider = function () {
     document
       .querySelectorAll('.dots__dot')
       .forEach(dot => dot.classList.remove('dots__dot--active'));
-    console.log('actdot', document.querySelectorAll('.dots__dot'));
+    // console.log('actdot', document.querySelectorAll('.dots__dot'));
 
     document
       .querySelector(`.dots__dot[data-slide="${slide}"]`)
@@ -329,7 +340,7 @@ const slider = function () {
   btnLeft.addEventListener('click', prevSlide);
 
   document.addEventListener('keydown', function (e) {
-    console.log(e);
+    // console.log(e);
     if (e.key === 'ArrowLeft') prevSlide();
     e.key === 'ArrowRight' && nextSlide();
   });
@@ -557,11 +568,11 @@ console.log(h1.parentElement.children);
 */
 
 document.addEventListener('DOMContentLoaded', function (e) {
-  console.log('HTML parsed and DOM tree built!', e);
+  // console.log('HTML parsed and DOM tree built!', e);
 });
 
 window.addEventListener('load', function (e) {
-  console.log('Page fully loaded', e);
+  // console.log('Page fully loaded', e);
 });
 
 // window.addEventListener('beforeunload', function (e) {
