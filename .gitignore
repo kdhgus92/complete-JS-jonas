@@ -2,3 +2,4 @@ final/
 README.md
 node_modules/
 .parcel-cache/
+dist/
