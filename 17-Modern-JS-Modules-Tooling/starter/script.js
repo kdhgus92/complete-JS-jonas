@@ -3,7 +3,6 @@
 // addToCart('bread', 5);
 // console.log(price, tq);
 
-/*
 console.log('Importing module');
 // console.log(shippingCost); // error
 
@@ -21,6 +20,7 @@ add('apples', 4);
 
 console.log(cart);
 
+/*
 //////////////////////////////////////////////////////
 // 285. Top-level await
 
@@ -95,7 +95,9 @@ export.addTocart = function (product, quantity) {
 const {addTocart} = require('./shoppingCart.js');
 */
 
-import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+// import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+import cloneDeep from 'lodash-es';
+// import cloneDeep from 'lodash';
 
 const state = {
   cart: [
@@ -110,3 +112,7 @@ const stateDeepClone = cloneDeep(state);
 state.user.loggedIn = false;
 console.log(stateClone); // clone된 녀석도 바뀐다.
 console.log(stateDeepClone); // 독립적
+
+if (module.hot) {
+  module.hot.accept();
+}
